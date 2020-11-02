@@ -55,7 +55,7 @@ sqlController.createUser = (req, res, next) => {
 
 /* USER LOGGED IN ACITONS */
 /* USER LOGGED IN ACITONS: Add review */
-sqlController.writeReviews = (req, res, next) => {
+sqlController.addReviews = (req, res, next) => {
   const { reviewRating, reviewText, productKey, userId } = req.body;
   const addReview = `INSERT INTO reviews(review_rating, review_text, product_key, user_id) VALUES (${1}, ${2}, cast(${3} as varchar), ${4})`;
   db.query(addReview)
