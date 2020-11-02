@@ -59,17 +59,11 @@ sqlController.createUser = (req, res, next) => {
 
 /* USER LOGGED IN ACITONS */
 /* USER LOGGED IN ACITONS: Add review */
-<<<<<<< HEAD
-sqlController.addReviews = (req, res, next) => {
-  const { reviewRating, reviewText, productKey, userId } = req.body;
-  const addReview = `INSERT INTO reviews(review_rating, review_text, product_key, user_id) VALUES (${1}, ${2}, cast(${3} as varchar), ${4})`;
-=======
 sqlController.addReview = (req, res, next) => {
   console.log('in add review function')
   const { reviewRating, reviewText, productKey } = req.body;
   console.log(req.body);
   const addReview = `INSERT INTO reviews(review_rating, review_text, product_key) VALUES (${reviewRating}, '${reviewText}', ${productKey}) RETURNING *`;
->>>>>>> 711f7c60bb2db90cfeccf8d22e3fee90d91350a3
   db.query(addReview)
   .then((data) => {
     console.log('in query for add review')
