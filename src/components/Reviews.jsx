@@ -10,7 +10,7 @@ const Reviews = props => {
   const [userEditedReview, setUserEditedReview] = useState('');
   const [userEditedRating, setUserEditedRating] = useState(0);
   //product reviews from database
-  let [reviewsArr, setReviewsArr] = useState([]);
+  const [reviewsArr, setReviewsArr] = useState([]);
   //flag for edit 
   const[editable, setEditable] = useState(false);
 
@@ -25,7 +25,7 @@ const Reviews = props => {
       //start of wrapper
       <div key={reviewsArr[i]._id} id={reviewsArr[i]._id} className='review'>
         <div className="userReviewInput"> 
-          <p>username</p>
+          <p>{reviewsArr[i].username}</p>
           <p>{reviewsArr[i].review_rating}</p>
           <p>{reviewsArr[i].review_text}</p>
 
@@ -69,15 +69,15 @@ const Reviews = props => {
           </div>
           <div className="reviewButtons">
             {/* { reviewRating, reviewText, reviewId} */}
-          <button onClick={(e) => {
+          {/* <button onClick={(e) => {
             // console.log("this is the target", e.target)
             e.preventDefault();
             setEditable(true)
             console.log(e.target)
           
-          }}>EDIT</button>
+          }}>EDIT</button> */}
         
-          <button onClick={(e) => {
+          <button className='deletebutton' onClick={(e) => {
             console.log('in Delete button',i)
             console.log(reviewsArr[i]._id)
             fetchAndDeleteReview(i);
@@ -131,8 +131,8 @@ const Reviews = props => {
           
           }}></input>
         <input type='text' placeholder="username" value={username} name='username' onChange={(e) => setUsername(e.target.value)}></input>
-        <input type='text' placeholder="Input Review here" value={userReview} name='userReview' onChange={(e) => setUserReview(e.target.value)}></input>
-        <button onClick={(e) => {
+        <input id='userreviewinput' type='text' placeholder="Input Review here" value={userReview} name='userReview' onChange={(e) => setUserReview(e.target.value)}></input>
+        <button id='reviewbutton' onClick={(e) => {
           e.preventDefault();
           const userReviewObj = {
             'reviewRating': userRating, 
@@ -148,6 +148,7 @@ const Reviews = props => {
             }, 
             body: JSON.stringify(userReviewObj)
           }).then(data => data.json()).then(data => {
+            data.username =username;
             setReviewsArr([...reviewsArr, data])
 
             console.log(reviewsArr);
@@ -156,7 +157,6 @@ const Reviews = props => {
 
         </div>
         <div className="reviewRender"></div>
-        {/* <p>Yo thiss product is sooo coool</p> */}
         {reviews}
     </div>//end of container
   )//end of return
